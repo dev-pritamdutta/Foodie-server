@@ -2,7 +2,7 @@ const express = require("express");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const cors = require("cors");
-const mongoose = require("mongoose");  
+const mongoose = require("mongoose");
 const port = process.env.port || 6001;
 require("dotenv").config();
 
@@ -12,12 +12,23 @@ app.use(express.json());
 
 //mongodb config setup using mongoose
 
+mongoose
+  .connect(
+    `mongodb+srv://pritamdutta7498:WWlrhBXHPWmkZ5cT@demo-foodi-client.zh57i.mongodb.net/demo-foodi-client?retryWrites=true&w=majority&appName=demo-foodi-client`
+  )
+  .then(console.log("Mongodb connected successfully!"))
+  .catch((err) => console.error(err));
 
-mongoose.connect(
-  `mongodb+srv://pritamdutta7498:WWlrhBXHPWmkZ5cT@demo-foodi-client.zh57i.mongodb.net/?retryWrites=true&w=majority&appName=demo-foodi-client`
-).then(
-  console.log('Mongodb connected successfully!')
-).catch(err => console.error(err))
+//import routes here
+const menuRoutes = require("./api/routes/menuRoutes");
+const cartRoutes = require("./api/routes/cartRoutes");
+
+app.use("/menu", menuRoutes);
+app.use("/carts", cartRoutes);
+
+
+
+
 
 
 
@@ -28,94 +39,6 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //short server upto work in cart and showing the data
 /*
